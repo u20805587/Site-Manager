@@ -24,4 +24,35 @@ public class SiteProjectCalendar implements Serializable {
     @Column(name = "notes")
     private String notes;
 
+    public SiteProject getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(SiteProject projectId) {
+        this.projectId = projectId;
+    }
+
+    public Date getWorkDate() {
+        return workDate;
+    }
+
+    public void setWorkDate(Date workDate) {
+        this.workDate = workDate;
+    }
+
+    public String getWorkingDay() {
+        return workingDay;
+    }
+
+    public void setWorkingDay(String workingDay) {
+        this.workingDay = workingDay;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 }

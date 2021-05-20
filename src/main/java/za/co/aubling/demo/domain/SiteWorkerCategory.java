@@ -16,4 +16,19 @@ public class SiteWorkerCategory implements Serializable {
     @Column(name = "cat_description")
     private String catDescription;
 
+    public String getWorkerCatId() {
+        return workerCatId;
+    }
+
+    public void setWorkerCatId(String workerCatId) {
+        this.workerCatId = workerCatId;
+    }
+
+    public String getCatDescription() {
+        return catDescription;
+    }
+
+    public void setCatDescription(String catDescription) {
+        this.catDescription = catDescription;
+    }
 }

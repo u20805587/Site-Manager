@@ -17,4 +17,19 @@ public class TaskEquipmentType implements Serializable {
     @Column(name = "type")
     private String type;
 
+    public Long getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

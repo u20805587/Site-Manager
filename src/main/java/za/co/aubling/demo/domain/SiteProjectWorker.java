@@ -21,4 +21,28 @@ public class SiteProjectWorker implements Serializable {
 
     @Column(name = "hourly_rate")
     private BigDecimal hourlyRate;
+
+    public SiteProject getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(SiteProject projectId) {
+        this.projectId = projectId;
+    }
+
+    public SiteWorker getWorkerId() {
+        return workerId;
+    }
+
+    public void setWorkerId(SiteWorker workerId) {
+        this.workerId = workerId;
+    }
+
+    public BigDecimal getHourlyRate() {
+        return hourlyRate;
+    }
+
+    public void setHourlyRate(BigDecimal hourlyRate) {
+        this.hourlyRate = hourlyRate;
+    }
 }
