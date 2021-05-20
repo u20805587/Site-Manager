@@ -1,12 +1,13 @@
 package za.co.aubling.demo.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 @Table(name = "site_worker")
-public class SiteWorker {
+public class SiteWorker implements Serializable {
 
     @Id @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "worker_id")
