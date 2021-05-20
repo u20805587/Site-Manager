@@ -31,4 +31,60 @@ public class SiteSubTask implements Serializable {
 
     @Column(name = "cubic_meter_cost")
     private BigDecimal cubicMeterCost;
+
+    public Long getSubTaskId() {
+        return subTaskId;
+    }
+
+    public void setSubTaskId(Long subTaskId) {
+        this.subTaskId = subTaskId;
+    }
+
+    public SiteTask getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(SiteTask taskId) {
+        this.taskId = taskId;
+    }
+
+    public String getSubTaskName() {
+        return subTaskName;
+    }
+
+    public void setSubTaskName(String subTaskName) {
+        this.subTaskName = subTaskName;
+    }
+
+    public String getSubTaskDescription() {
+        return subTaskDescription;
+    }
+
+    public void setSubTaskDescription(String subTaskDescription) {
+        this.subTaskDescription = subTaskDescription;
+    }
+
+    public BigDecimal getMeterCost() {
+        return meterCost;
+    }
+
+    public void setMeterCost(BigDecimal meterCost) {
+        this.meterCost = meterCost;
+    }
+
+    public BigDecimal getSquareMeterCost() {
+        return squareMeterCost;
+    }
+
+    public void setSquareMeterCost(BigDecimal squareMeterCost) {
+        this.squareMeterCost = squareMeterCost;
+    }
+
+    public BigDecimal getCubicMeterCost() {
+        return cubicMeterCost;
+    }
+
+    public void setCubicMeterCost(BigDecimal cubicMeterCost) {
+        this.cubicMeterCost = cubicMeterCost;
+    }
 }

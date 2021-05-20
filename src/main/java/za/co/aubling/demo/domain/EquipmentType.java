@@ -18,4 +18,19 @@ public class EquipmentType implements Serializable {
     @Column(name = "type")
     private String type;
 
+    public SiteTask getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(SiteTask taskId) {
+        this.taskId = taskId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
