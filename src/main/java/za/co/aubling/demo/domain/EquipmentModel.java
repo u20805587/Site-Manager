@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "equipment_mode")
+@Table(name = "equipment_model")
 public class EquipmentModel implements Serializable {
 
     @Id
