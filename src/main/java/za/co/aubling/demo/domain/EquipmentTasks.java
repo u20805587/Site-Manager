@@ -2,20 +2,18 @@ package za.co.aubling.demo.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 
 @Entity
 @Table(name = "task_equipment_type")
-public class TaskEquipmentType implements Serializable {
+public class EquipmentTasks implements Serializable {
 
     @Id
     @Column(name = "task_id")
     private Long taskId;
 
     @Id
-    @Column(name = "type")
-    private String type;
+    @Column(name = "equipment_id")
+    private Long equipmentID;
 
     public Long getTaskId() {
         return taskId;
@@ -25,11 +23,11 @@ public class TaskEquipmentType implements Serializable {
         this.taskId = taskId;
     }
 
-    public String getType() {
-        return type;
+    public Long getEquipmentID() {
+        return equipmentID;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setEquipmentID(Long equipmentID) {
+        this.equipmentID = equipmentID;
     }
 }

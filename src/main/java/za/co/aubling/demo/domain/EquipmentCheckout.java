@@ -2,7 +2,6 @@ package za.co.aubling.demo.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -15,27 +14,27 @@ public class EquipmentCheckout implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "equipment_id")
-    private Equipment equipmentId;
+    private Long equipmentId;
 
     @ManyToOne
     @JoinColumn (name = "project_id")
-    private SiteProject projectId;
+    private Long projectId;
 
     @ManyToOne
     @JoinColumn (name = "worker_id")
-    private SiteWorker workerId;
+    private Long workerId;
 
     @Column(name = "checkout_date")
-    private String checkoutDate;
+    private Date checkoutDate;
 
     @Column(name = "return_date")
-    private String returnDate;
+    private Date returnDate;
 
     @Column(name = "returned")
     private String returned;
 
     @Column(name = "date_acquired")
-    private String dateAcquired;
+    private Date dateAcquired;
 
     public Long getReferenceNumber() {
         return referenceNumber;
@@ -45,43 +44,43 @@ public class EquipmentCheckout implements Serializable {
         this.referenceNumber = referenceNumber;
     }
 
-    public Equipment getEquipmentId() {
+    public Long getEquipmentId() {
         return equipmentId;
     }
 
-    public void setEquipmentId(Equipment equipmentId) {
+    public void setEquipmentId(Long equipmentId) {
         this.equipmentId = equipmentId;
     }
 
-    public SiteProject getProjectId() {
+    public Long getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(SiteProject projectId) {
+    public void setProjectId(Long projectId) {
         this.projectId = projectId;
     }
 
-    public SiteWorker getWorkerId() {
+    public Long getWorkerId() {
         return workerId;
     }
 
-    public void setWorkerId(SiteWorker workerId) {
+    public void setWorkerId(Long workerId) {
         this.workerId = workerId;
     }
 
-    public String getCheckoutDate() {
+    public Date getCheckoutDate() {
         return checkoutDate;
     }
 
-    public void setCheckoutDate(String checkoutDate) {
+    public void setCheckoutDate(Date checkoutDate) {
         this.checkoutDate = checkoutDate;
     }
 
-    public String getReturnDate() {
+    public Date getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(String returnDate) {
+    public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
     }
 
@@ -93,11 +92,11 @@ public class EquipmentCheckout implements Serializable {
         this.returned = returned;
     }
 
-    public String getDateAcquired() {
+    public Date getDateAcquired() {
         return dateAcquired;
     }
 
-    public void setDateAcquired(String dateAcquired) {
+    public void setDateAcquired(Date dateAcquired) {
         this.dateAcquired = dateAcquired;
     }
 }
