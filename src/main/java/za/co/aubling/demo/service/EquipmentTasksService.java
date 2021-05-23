@@ -11,7 +11,7 @@ public class EquipmentTasksService {
     @Autowired
     private EquipmentTasksRepository equipmentTasksRepository;
 
-    public void addSiteWorker(){
+    public void addEquipmentTasks(){
 
         za.co.aubling.demo.domain.EquipmentTasks taskEquipmentType = new za.co.aubling.demo.domain.EquipmentTasks();
 
