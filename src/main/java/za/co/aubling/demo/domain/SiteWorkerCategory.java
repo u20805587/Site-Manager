@@ -2,8 +2,6 @@ package za.co.aubling.demo.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 
 @Entity
 @Table(name = "site_worker_category")

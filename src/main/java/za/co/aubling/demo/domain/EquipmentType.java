@@ -10,21 +10,11 @@ import java.util.Date;
 public class EquipmentType implements Serializable {
 
     @Id
-    @ManyToOne
-    @JoinColumn (name = "task_id")
-    private SiteTask taskId;
-
-    @Id
     @Column(name = "type")
     private String type;
 
-    public SiteTask getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(SiteTask taskId) {
-        this.taskId = taskId;
-    }
+    @Column (name = "description")
+    private String description;
 
     public String getType() {
         return type;
@@ -32,5 +22,13 @@ public class EquipmentType implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

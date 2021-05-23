@@ -2,8 +2,6 @@ package za.co.aubling.demo.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 
 @Entity
 @Table(name = "equipment_model")
@@ -11,7 +9,7 @@ public class EquipmentModel implements Serializable {
 
     @Id
     @Column(name = "brand")
-    private Long brand;
+    private String brand;
 
     @Id
     @Column(name = "model")
@@ -23,11 +21,11 @@ public class EquipmentModel implements Serializable {
     @Column(name = "year")
     private String year;
 
-    public Long getBrand() {
+    public String getBrand() {
         return brand;
     }
 
-    public void setBrand(Long brand) {
+    public void setBrand(String brand) {
         this.brand = brand;
     }
 

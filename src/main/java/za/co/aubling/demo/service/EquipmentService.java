@@ -19,6 +19,17 @@ public class EquipmentService {
 
         Equipment equipment = new Equipment();
 
+        equipment.setEquipmentId(Long.valueOf(20000000));
+        equipment.setEquipmentName("Makita Driller");
+        equipment.setEquipmentDescription("Very tough power driller");
+        equipment.setBrand("Makita");
+        equipment.setServiced("Y");
+        equipment.setCost(new BigDecimal("800.000001"));
+        equipment.setDateAcquired(new Date());
+        equipment.setModel("XR-260");
+        equipment.setNextServiceDate(new Date());
+        equipment.setServiceDate(new Date());
+        equipment.setStatus("A");
 
         equipmentRepository.save(equipment);
     }

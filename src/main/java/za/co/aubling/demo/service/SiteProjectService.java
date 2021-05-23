@@ -9,12 +9,12 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Service
-public class ProjectService {
+public class SiteProjectService {
 
     @Autowired
     private SiteProjectRepository siteProjectRepository;
 
-    public void addProject(){
+    public void addSiteProject(){
 
         SiteProject siteProject = new SiteProject();
 
@@ -26,7 +26,7 @@ public class ProjectService {
         siteProject.setProjectDescription("Lining paving in yard");
         siteProject.setEstimatedEndDate(new Date());
         siteProject.setEstimatedStartDate(new Date());
-        siteProject.setStatus("Active");
+        siteProject.setStatus("A");
         siteProjectRepository.save(siteProject);
     }
 }
