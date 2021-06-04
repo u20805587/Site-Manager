@@ -19,10 +19,6 @@ public class SiteProjectCalendarService {
 
         SiteProjectCalendar siteProjectCalendar = new SiteProjectCalendar();
 
-        siteProjectCalendar.setProjectId(new SiteProject());
-        siteProjectCalendar.setNotes("Working Day");
-        siteProjectCalendar.setWorkDate(new Date());
-        siteProjectCalendar.setWorkingDay("Y");
 
 
         siteProjectCalendarRepository.save(siteProjectCalendar);

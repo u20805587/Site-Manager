@@ -15,11 +15,6 @@ public class SiteTaskService {
     public void addSiteTask(){
 
         SiteTask siteTask = new SiteTask();
-
-        siteTask.setTaskId(Long.valueOf(2000000));
-        siteTask.setTaskName("Paving");
-        siteTask.setTaskDescription("Laying Brinks On The Ground");
-
         siteTaskRepository.save(siteTask);
     }
 }

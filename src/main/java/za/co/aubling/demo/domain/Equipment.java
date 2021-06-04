@@ -1,23 +1,28 @@
 package za.co.aubling.demo.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "equipment")
 public class Equipment implements Serializable {
 
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name = "equipment_id")
-    private Long equipmentId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(name = "equipment_name")
-    private String equipmentName;
+    private String name;
 
     @Column(name = "equipment_description")
-    private String equipmentDescription;
+    private String description;
 
     @Column(name = "brand")
     private String brand;
@@ -29,105 +34,18 @@ public class Equipment implements Serializable {
     private String status;
 
     @Column(name = "date_acquired")
-    private Date dateAcquired;
+    private Timestamp dateAcquired;
 
     @Column(name = "cost")
     private BigDecimal cost;
 
     @Column(name = "service_date")
-    private Date serviceDate;
+    private Timestamp serviceDate;
 
     @Column(name = "next_service_date")
-    private Date nextServiceDate;
+    private Timestamp nextServiceDate;
 
     @Column(name = "serviced")
     private String serviced;
 
-    public Long getEquipmentId() {
-        return equipmentId;
-    }
-
-    public void setEquipmentId(Long equipmentId) {
-        this.equipmentId = equipmentId;
-    }
-
-    public String getEquipmentName() {
-        return equipmentName;
-    }
-
-    public void setEquipmentName(String equipmentName) {
-        this.equipmentName = equipmentName;
-    }
-
-    public String getEquipmentDescription() {
-        return equipmentDescription;
-    }
-
-    public void setEquipmentDescription(String equipmentDescription) {
-        this.equipmentDescription = equipmentDescription;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Date getDateAcquired() {
-        return dateAcquired;
-    }
-
-    public void setDateAcquired(Date dateAcquired) {
-        this.dateAcquired = dateAcquired;
-    }
-
-    public BigDecimal getCost() {
-        return cost;
-    }
-
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
-    }
-
-    public Date getServiceDate() {
-        return serviceDate;
-    }
-
-    public void setServiceDate(Date serviceDate) {
-        this.serviceDate = serviceDate;
-    }
-
-    public Date getNextServiceDate() {
-        return nextServiceDate;
-    }
-
-    public void setNextServiceDate(Date nextServiceDate) {
-        this.nextServiceDate = nextServiceDate;
-    }
-
-    public String getServiced() {
-        return serviced;
-    }
-
-    public void setServiced(String serviced) {
-        this.serviced = serviced;
-    }
 }

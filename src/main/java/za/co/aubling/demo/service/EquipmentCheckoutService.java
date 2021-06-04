@@ -19,15 +19,6 @@ public class EquipmentCheckoutService {
 
         EquipmentCheckout equipmentCheckout = new EquipmentCheckout();
 
-        equipmentCheckout.setEquipmentId(Long.valueOf(20000000));
-        equipmentCheckout.setCheckoutDate(new Date());
-        equipmentCheckout.setDateAcquired(new Date());
-        equipmentCheckout.setProjectId(Long.valueOf(20000000));
-        equipmentCheckout.setReturned("N");
-        equipmentCheckout.setReferenceNumber(Long.valueOf(2222222));
-        equipmentCheckout.setReturnDate(new Date());
-        equipmentCheckout.setWorkerId(Long.valueOf(20000000));
-
         equipmentCheckoutRepository.save(equipmentCheckout);
     }
 }

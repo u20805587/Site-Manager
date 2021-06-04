@@ -1,42 +1,44 @@
 package za.co.aubling.demo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.co.aubling.demo.dao.SiteWorkerRepository;
+import za.co.aubling.demo.domain.SiteProject;
 import za.co.aubling.demo.domain.SiteWorker;
-import za.co.aubling.demo.domain.SiteWorkerCategory;
+import za.co.aubling.demo.dto.SiteWorkerDto;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class SiteWorkerService {
 
-    @Autowired
-    private SiteWorkerRepository siteWorkerRepository;
+    private final SiteWorkerRepository siteWorkerRepository;
 
-    public void addSiteWorker(){
+    public SiteWorkerService(SiteWorkerRepository siteWorkerRepository) {
+        this.siteWorkerRepository = siteWorkerRepository;
+    }
 
-        SiteWorker siteWorker = new SiteWorker();
+    @Transactional
+    public SiteWorker addSiteWorker(SiteWorkerDto siteWorkerDto) {
+        SiteWorker siteWorker = SiteWorker.builder()
+                .name(siteWorkerDto.getName())
+                .surname(siteWorkerDto.getSurname())
+                .addressLine1(siteWorkerDto.getAddressLine1())
+                .addressLine2(siteWorkerDto.getAddressLine2())
+                .addressLine3(siteWorkerDto.getAddressLine3())
+                .gender(siteWorkerDto.getGender())
+                .nationality(siteWorkerDto.getNationality())
+                .birthDate(siteWorkerDto.getBirthDate())
+                .postalCode(siteWorkerDto.getPostalCode())
+                .contactNumber(siteWorkerDto.getContactNumber())
+                .idNumber(siteWorkerDto.getIdNumber())
+                .stateCode(siteWorkerDto.getStateCode())
+                .hourlyRate(siteWorkerDto.getHourlyRate())
+                .build();
+        return siteWorkerRepository.save(siteWorker);
+    }
 
-        siteWorker.setWorkerId(Long.valueOf(2000000));
-        siteWorker.setHourlyRate(BigDecimal.valueOf(200));
-        siteWorker.setWorkerCatId(new SiteWorkerCategory());
-        siteWorker.setAddressLine1("Makgobaskloof");
-        siteWorker.setAddressLine2(null);
-        siteWorker.setAddressLine3(null);
-        siteWorker.setBirthDate(new Date());
-        siteWorker.setContactNumber("0761133391");
-        siteWorker.setGender("M");
-        siteWorker.setIdNumber("860507565555");
-        siteWorker.setMiddleName("Lucas");
-        siteWorker.setName("Aubrey");
-        siteWorker.setNationality("SA");
-        siteWorker.setPostalCode("0187");
-        siteWorker.setStateCode("SA");
-        siteWorker.setSurname("Lengwate");
-
-        siteWorkerRepository.save(siteWorker);
+    public List<SiteWorker> getWorkers() {
+        return siteWorkerRepository.findAll();
     }
 }

@@ -1,45 +1,27 @@
 package za.co.aubling.demo.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "site_task")
 public class SiteTask implements Serializable {
 
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name = "task_id")
-    private Long taskId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(name = "task_name")
-    private String taskName;
+    private String name;
 
     @Column(name = "task_description")
-    private String taskDescription;
+    private String description;
 
-    public Long getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
-    }
-
-    public String getTaskName() {
-        return taskName;
-    }
-
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
-    public String getTaskDescription() {
-        return taskDescription;
-    }
-
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
-    }
 }

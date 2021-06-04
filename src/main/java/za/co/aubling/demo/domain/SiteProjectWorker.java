@@ -1,48 +1,38 @@
 package za.co.aubling.demo.domain;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "site_project_worker")
 public class SiteProjectWorker implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
     @ManyToOne
     @JoinColumn (name = "project_id")
-    private SiteProject projectId;
+    private SiteProject siteProject;
 
-    @Id
     @ManyToOne
     @JoinColumn (name = "worker_id")
-    private SiteWorker workerId;
+    private SiteWorker siteWorker;
 
     @Column(name = "hourly_rate")
     private BigDecimal hourlyRate;
 
-    public SiteProject getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(SiteProject projectId) {
-        this.projectId = projectId;
-    }
-
-    public SiteWorker getWorkerId() {
-        return workerId;
-    }
-
-    public void setWorkerId(SiteWorker workerId) {
-        this.workerId = workerId;
-    }
-
-    public BigDecimal getHourlyRate() {
-        return hourlyRate;
-    }
-
-    public void setHourlyRate(BigDecimal hourlyRate) {
-        this.hourlyRate = hourlyRate;
-    }
 }

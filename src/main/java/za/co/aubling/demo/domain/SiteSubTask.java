@@ -1,21 +1,26 @@
 package za.co.aubling.demo.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "site_sub_task")
 public class SiteSubTask implements Serializable {
 
-    @Id @GeneratedValue(strategy=GenerationType.AUTO)
-    @JoinColumn (name = "sub_task_id")
-    private Long subTaskId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @ManyToOne
-    @JoinColumn (name = "task_id")
-    private SiteTask taskId;
+    @JoinColumn(name = "task_id")
+    private SiteTask siteTask;
 
     @Column(name = "sub_task_name")
     private String subTaskName;
@@ -32,59 +37,4 @@ public class SiteSubTask implements Serializable {
     @Column(name = "cubic_meter_cost")
     private BigDecimal cubicMeterCost;
 
-    public Long getSubTaskId() {
-        return subTaskId;
-    }
-
-    public void setSubTaskId(Long subTaskId) {
-        this.subTaskId = subTaskId;
-    }
-
-    public SiteTask getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(SiteTask taskId) {
-        this.taskId = taskId;
-    }
-
-    public String getSubTaskName() {
-        return subTaskName;
-    }
-
-    public void setSubTaskName(String subTaskName) {
-        this.subTaskName = subTaskName;
-    }
-
-    public String getSubTaskDescription() {
-        return subTaskDescription;
-    }
-
-    public void setSubTaskDescription(String subTaskDescription) {
-        this.subTaskDescription = subTaskDescription;
-    }
-
-    public BigDecimal getMeterCost() {
-        return meterCost;
-    }
-
-    public void setMeterCost(BigDecimal meterCost) {
-        this.meterCost = meterCost;
-    }
-
-    public BigDecimal getSquareMeterCost() {
-        return squareMeterCost;
-    }
-
-    public void setSquareMeterCost(BigDecimal squareMeterCost) {
-        this.squareMeterCost = squareMeterCost;
-    }
-
-    public BigDecimal getCubicMeterCost() {
-        return cubicMeterCost;
-    }
-
-    public void setCubicMeterCost(BigDecimal cubicMeterCost) {
-        this.cubicMeterCost = cubicMeterCost;
-    }
 }

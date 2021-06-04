@@ -20,12 +20,6 @@ public class SiteProjectTaskLogService {
 
         SiteProjectTaskLog siteProjectTaskLog = new SiteProjectTaskLog();
 
-        siteProjectTaskLog.setProjectId(new SiteProject());
-        siteProjectTaskLog.setSubTaskId(new SiteSubTask());
-        siteProjectTaskLog.setWorkDate(new Date());
-        siteProjectTaskLog.setHeight(null);
-        siteProjectTaskLog.setLength(BigDecimal.valueOf(200));
-        siteProjectTaskLog.setWidth(BigDecimal.valueOf(200));
 
         siteProjectTaskLogRepository.save(siteProjectTaskLog);
     }

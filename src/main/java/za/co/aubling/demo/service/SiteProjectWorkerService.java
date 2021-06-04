@@ -20,9 +20,6 @@ public class SiteProjectWorkerService {
 
         SiteProjectWorker siteProjectWorker = new SiteProjectWorker();
 
-        siteProjectWorker.setProjectId(new SiteProject());
-        siteProjectWorker.setWorkerId(new SiteWorker());
-        siteProjectWorker.setHourlyRate(BigDecimal.valueOf(200));
 
         siteProjectWorkerRepository.save(siteProjectWorker);
     }

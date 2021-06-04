@@ -20,10 +20,6 @@ public class SiteProjectWorkerLogService {
 
         SiteProjectWorkerLog siteProjectWorkerLog = new SiteProjectWorkerLog();
 
-        siteProjectWorkerLog.setProjectId(new SiteProject());
-        siteProjectWorkerLog.setWorkerId(new SiteWorker());
-        siteProjectWorkerLog.setWorkDate(new Date());
-        siteProjectWorkerLog.setHours(BigDecimal.valueOf(8));
 
         siteProjectWorkerLogRepository.save(siteProjectWorkerLog);
     }
