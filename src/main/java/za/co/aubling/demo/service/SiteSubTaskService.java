@@ -18,12 +18,6 @@ public class SiteSubTaskService {
 
         SiteSubTask siteSubTask = new SiteSubTask();
 
-        siteSubTask.setSubTaskId(Long.valueOf(20000000));
-        siteSubTask.setTaskId(new SiteTask());
-        siteSubTask.setSubTaskName("Brick Laying");
-        siteSubTask.setSubTaskDescription("Laying Bricks On Ground with Pattern");
-        siteSubTask.setCubicMeterCost(null);
-        siteSubTask.setMeterCost(null);
         siteSubTask.setSquareMeterCost(BigDecimal.valueOf(200));
 
         siteSubTaskRepository.save(siteSubTask);

@@ -1,33 +1,32 @@
 package za.co.aubling.demo.domain;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "task_equipment_type")
-public class EquipmentTasks implements Serializable {
+public class EquipmentTasks {
 
     @Id
-    @Column(name = "task_id")
-    private Long taskId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @Id
-    @Column(name = "equipment_id")
-    private Long equipmentID;
+    @ManyToOne
+    @JoinColumn (name = "task_id")
+    private SiteTask siteTask;
 
-    public Long getTaskId() {
-        return taskId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "equipment_id")
+    private Equipment equipment;
 
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
-    }
-
-    public Long getEquipmentID() {
-        return equipmentID;
-    }
-
-    public void setEquipmentID(Long equipmentID) {
-        this.equipmentID = equipmentID;
-    }
 }

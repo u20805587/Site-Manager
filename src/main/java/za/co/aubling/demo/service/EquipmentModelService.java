@@ -14,15 +14,15 @@ public class EquipmentModelService {
     @Autowired
     private EquipmentModelRepository equipmentModelRepository;
 
-    public void addEquipmentModel(){
+    public void addEquipmentModel() {
 
         EquipmentModel equipmentModel = new EquipmentModel();
 
-       equipmentModel.setModel("XR-260");
-       equipmentModel.setBrand("Makita");
-       equipmentModel.setType("Cordless");
-       equipmentModel.setYear("2021");
+        equipmentModel.setModel("XR-260");
+        equipmentModel.setBrand("Makita");
+        equipmentModel.setType("Cordless");
+        equipmentModel.setYear("2021");
 
-       equipmentModelRepository.save(equipmentModel);
+        equipmentModelRepository.save(equipmentModel);
     }
 }

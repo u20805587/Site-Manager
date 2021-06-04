@@ -15,8 +15,6 @@ public class SiteWorkerCategoryService {
 
         SiteWorkerCategory siteWorkerCategory = new SiteWorkerCategory();
 
-        siteWorkerCategory.setWorkerCatId("Foreman");
-        siteWorkerCategory.setCatDescription("Ground Supervisor");
 
         siteWorkerCategoryRepository.save(siteWorkerCategory);
     }

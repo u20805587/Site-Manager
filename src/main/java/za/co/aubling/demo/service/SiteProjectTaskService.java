@@ -20,13 +20,6 @@ public class SiteProjectTaskService {
 
         SiteProjectTask siteProjectTask = new SiteProjectTask();
 
-        siteProjectTask.setProjectId(new SiteProject());
-        siteProjectTask.setSubTaskId(new SiteSubTask());
-        siteProjectTask.setStatus("A");
-        siteProjectTask.setHeight(null);
-        siteProjectTask.setLength(BigDecimal.valueOf(200));
-        siteProjectTask.setWidth(BigDecimal.valueOf(200));
-        siteProjectTask.setUnit("S");
 
         siteProjectTaskRepository.save(siteProjectTask);
     }

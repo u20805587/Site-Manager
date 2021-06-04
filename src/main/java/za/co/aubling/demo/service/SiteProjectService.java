@@ -4,29 +4,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import za.co.aubling.demo.dao.SiteProjectRepository;
 import za.co.aubling.demo.domain.SiteProject;
+import za.co.aubling.demo.dto.SiteProjectDto;
+import za.co.aubling.demo.mapper.SiteProjectMapper;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class SiteProjectService {
 
-    @Autowired
-    private SiteProjectRepository siteProjectRepository;
+    private final SiteProjectMapper projectMapper;
 
-    public void addSiteProject(){
+    private final SiteProjectRepository siteProjectRepository;
 
-        SiteProject siteProject = new SiteProject();
+    public SiteProjectService(SiteProjectRepository siteProjectRepository, SiteProjectMapper projectMapper) {
+        this.siteProjectRepository = siteProjectRepository;
+        this.projectMapper = projectMapper;
+    }
 
-        siteProject.setProjectCost(BigDecimal.valueOf(20000000));
-        siteProject.setEndDate(new Date());
-        siteProject.setStartDate(new Date());
-        siteProject.setDateAcquired(new Date());
-        siteProject.setProjectName("Bling Paving");
-        siteProject.setProjectDescription("Lining paving in yard");
-        siteProject.setEstimatedEndDate(new Date());
-        siteProject.setEstimatedStartDate(new Date());
-        siteProject.setStatus("A");
-        siteProjectRepository.save(siteProject);
+    @Transactional
+    public SiteProject addSiteProject(SiteProjectDto siteProjectDto){
+        SiteProject siteProject = projectMapper.toEntity(siteProjectDto);
+        return siteProjectRepository.save(siteProject);
+    }
+
+    public List<SiteProject> getProjects() {
+        return siteProjectRepository.findAll();
     }
 }
