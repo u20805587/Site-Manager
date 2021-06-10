@@ -7,6 +7,7 @@ import za.co.aubling.demo.dto.AuditLogDto;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AuditLogService {
@@ -34,4 +35,9 @@ public class AuditLogService {
     public List<AuditLog> getAuditLog() {
         return AuditLogRepository.findAll();
     }
+
+    public Optional<AuditLog> getAuditLog(String keyId) {
+        return AuditLogRepository.findById(keyId);
+    }
+
 }

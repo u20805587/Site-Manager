@@ -6,7 +6,7 @@ import za.co.aubling.demo.dto.AuditLogDto;
 
 @Component
 public class AuditLogMapper {
-    public AuditLogDto.AuditLogDtoBuilder toDto(AuditLog auditLog) {
+    public AuditLogDto toDto(AuditLog auditLog) {
         return AuditLogDto.builder()
                 .keyId(auditLog.getKeyId())
                 .action(auditLog.getAction())
@@ -14,7 +14,8 @@ public class AuditLogMapper {
                 .keyColumns(auditLog.getKeyColumns())
                 .modifiedBy(auditLog.getModifiedBy())
                 .modificationTimestamp(auditLog.getModificationTimestamp())
-                .tableName(auditLog.getTableName());
+                .tableName(auditLog.getTableName())
+                .build();
     }
 
     public AuditLog toEntity(AuditLogDto auditLogDto) {
