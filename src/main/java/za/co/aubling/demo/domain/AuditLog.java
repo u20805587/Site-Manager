@@ -18,15 +18,17 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
+@IdClass(AuditLog.class)
 @Table(name = "audit_log")
-public class AuditLog {
+public class AuditLog implements Serializable {
 
     @Id
     @Column(name = "key_id")
     private String keyId;
 
+    @Id
     @Column(name = "modification_no")
-    private Long modificationNo;
+    private Integer modificationNo;
 
     @Column(name = "table_name")
     private String tableName;
@@ -38,7 +40,7 @@ public class AuditLog {
     private String modifiedBy;
 
     @Column(name = "modification_timestamp")
-    private Timestamp modificationTimestamp;
+    private Date modificationTimestamp;
 
     @Column(name = "action")
     private String action;
