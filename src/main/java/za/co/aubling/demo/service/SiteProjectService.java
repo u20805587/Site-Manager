@@ -32,7 +32,11 @@ public class SiteProjectService {
         return siteProjectRepository.findAll();
     }
 
-    public Optional<SiteProject> getProject(Long projectId) {
-        return siteProjectRepository.findById(projectId);
+    public SiteProject getProject(Long projectId) {
+        Optional<SiteProject> project = siteProjectRepository.findById(projectId);
+        if (!project.isPresent()) {
+            throw new RuntimeException(String.format("Project with id %s does not exist", projectId));
+        }
+        return project.get();
     }
 }

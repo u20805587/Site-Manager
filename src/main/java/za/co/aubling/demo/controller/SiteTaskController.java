@@ -4,10 +4,10 @@ package za.co.aubling.demo.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import za.co.aubling.demo.domain.SiteProject;
-import za.co.aubling.demo.dto.SiteProjectDto;
-import za.co.aubling.demo.mapper.SiteProjectMapper;
-import za.co.aubling.demo.service.SiteProjectService;
+import za.co.aubling.demo.domain.SiteTask;
+import za.co.aubling.demo.dto.SiteTaskDto;
+import za.co.aubling.demo.mapper.SiteTaskMapper;
+import za.co.aubling.demo.service.SiteTaskService;
 
 import za.co.aubling.demo.domain.AuditLog;
 import za.co.aubling.demo.dto.AuditLogDto;
@@ -25,12 +25,12 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/project")
-public class SiteProjectController {
+@RequestMapping("/api/task")
+public class SiteTaskController {
 
-    private final SiteProjectMapper siteProjectMapper;
+    private final SiteTaskMapper siteTaskMapper;
 
-    private final SiteProjectService siteProjectService;
+    private final SiteTaskService siteTaskService;
 
     private final AuditLogService auditLogService;
 
@@ -40,14 +40,14 @@ public class SiteProjectController {
 
     private final AuditLogFieldDto auditLogFieldDto;
 
-    public SiteProjectController(SiteProjectService siteProjectService,
-                                 SiteProjectMapper siteProjectMapper,
+    public SiteTaskController(SiteTaskService siteTaskService,
+                                 SiteTaskMapper siteTaskMapper,
                                  AuditLogService auditLogService,
                                  AuditLogDto auditLogDto,
                                  AuditLogFieldService auditLogFieldService,
                                  AuditLogFieldDto auditLogFieldDto) {
-        this.siteProjectService = siteProjectService;
-        this.siteProjectMapper = siteProjectMapper;
+        this.siteTaskService = siteTaskService;
+        this.siteTaskMapper = siteTaskMapper;
         this.auditLogService = auditLogService;
         this.auditLogDto = auditLogDto;
         this.auditLogFieldService = auditLogFieldService;
@@ -55,40 +55,40 @@ public class SiteProjectController {
     }
 
     @PostMapping
-    public ResponseEntity<SiteProject> addSiteProject(@RequestBody SiteProjectDto siteProjectDto) {
-        log.debug("Site project: {}", siteProjectDto);
-        SiteProject siteProject = siteProjectService.addSiteProject(siteProjectDto);
+    public ResponseEntity<SiteTask> addSiteTask(@RequestBody SiteTaskDto siteTaskDto) {
+        log.debug("Site Task: {}", siteTaskDto);
+        SiteTask siteTask = siteTaskService.addSiteTask(siteTaskDto);
 
-        auditLogDto.setKeyId("site_project~" + siteProject.getId());
+        auditLogDto.setKeyId("site_Task~" + siteTask.getId());
         auditLogDto.setModifiedBy("AUBREY");
         auditLogDto.setAction("Insert");
         auditLogDto.setModificationNo(1);
-        auditLogDto.setTableName("site_project");
+        auditLogDto.setTableName("site_Task");
         auditLogDto.setModificationTimestamp(new Date());
-        auditLogDto.setKeyColumns("ProjectId");
+        auditLogDto.setKeyColumns("Id");
 
-        auditLogFieldDto.setKeyId("site_project~" + siteProject.getId());
+        auditLogFieldDto.setKeyId("site_Task~" + siteTask.getId());
         auditLogFieldDto.setFieldName("name");
-        auditLogFieldDto.setNewValue(siteProject.getName());
+        auditLogFieldDto.setNewValue(siteTask.getName());
         auditLogFieldDto.setModificationNo(1);
 
         auditLogService.addAuditLog(auditLogDto);
         auditLogFieldService.addAuditLogField(auditLogFieldDto);
-        return ResponseEntity.ok(siteProject);
+        return ResponseEntity.ok(siteTask);
     }
 
     @GetMapping
-    public ResponseEntity<List<SiteProjectDto>> getProjects() {
-        List<SiteProject> siteProjects = siteProjectService.getProjects();
-        return ResponseEntity.ok(siteProjects.stream()
-                .map(siteProjectMapper::toDto)
+    public ResponseEntity<List<SiteTaskDto>> getTasks() {
+        List<SiteTask> siteTasks = siteTaskService.getTasks();
+        return ResponseEntity.ok(siteTasks.stream()
+                .map(siteTaskMapper::toDto)
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/{projectId}")
-    public ResponseEntity<SiteProjectDto> getProject(@PathVariable Long projectId) {
-        SiteProject project = siteProjectService.getProject(projectId);
-        return ResponseEntity.ok(siteProjectMapper.toDto(project));
+    @GetMapping("/{TaskId}")
+    public ResponseEntity<SiteTaskDto> getTask(@PathVariable Long TaskId) {
+        SiteTask Task = siteTaskService.getTask(TaskId);
+        return ResponseEntity.ok(siteTaskMapper.toDto(Task));
     }
 
 }
