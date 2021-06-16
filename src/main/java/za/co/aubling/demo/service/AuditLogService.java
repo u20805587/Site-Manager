@@ -1,5 +1,8 @@
 package za.co.aubling.demo.service;
 import java.sql.*;
+import java.io.*;
+import java.lang.*;
+import jdk.nashorn.internal.lookup.MethodHandleFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +12,7 @@ import za.co.aubling.demo.domain.*;
 import za.co.aubling.demo.domain.SiteProject;
 import za.co.aubling.demo.dto.AuditLogDto;
 import za.co.aubling.demo.dto.SiteProjectDto;
+import java.lang.reflect.*;
 import za.co.aubling.demo.service.AuditLogFieldService;
 
 import javax.transaction.Transactional;
@@ -49,12 +53,12 @@ public class AuditLogService {
         return AuditLogRepository.save(auditLog);
     }
 
-    public void AuditSiteProject(SiteProjectDto siteProjectDto) throws SQLException, ClassNotFoundException {
+    public void AuditSiteProject(SiteProjectDto siteProjectDto) throws SQLException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         SiteProject siteProject = siteProjectService.getProject(siteProjectDto.getId());
         AuditSiteProject(siteProject);
     }
 
-    public AuditLog AuditSiteProject(SiteProject siteProject) throws ClassNotFoundException, SQLException {
+    public AuditLog AuditSiteProject(SiteProject siteProject) throws ClassNotFoundException, SQLException, NoSuchFieldException, IllegalAccessException {
         String myDriver = "org.postgresql.Driver";
         String myUrl = "jdbc:postgresql://localhost:5432/SiteProject";
         Class.forName(myDriver);
@@ -74,7 +78,7 @@ public class AuditLogService {
 
         query = "SELECT id, date_acquired, project_description, end_date, estimated_end_date, estimated_start_date, " +
                 "project_name, notes, project_cost, start_date, status, default_daily_hours, estimated_cost, " +
-                "maximum_allowed_hours FROM site_project where id = " + 23;//+ siteProject.getId()+";";
+                "maximum_allowed_hours FROM site_project where id = " + siteProject.getId()+";";
 
         rs = st.executeQuery(query);
 
@@ -92,94 +96,24 @@ public class AuditLogService {
                             .tableName("site_project")
                             .build();
 
-        AuditLogField auditFieldLog = AuditLogField.builder()
-                                .keyId("site_project~" + siteProject.getId())
-                                .modificationNo(modNo)
-                                .fieldName("name")
-                                .newValue(siteProject.getName())
-                                .oldValue(rs.getString("project_name")+"AUB")
-                                .build();
-         auditLogFieldService.auditField(auditFieldLog);
+        Field[] allFields = siteProject.getClass().getDeclaredFields();
 
-         auditFieldLog = AuditLogField.builder()
-                .keyId("site_project~" + siteProject.getId())
-                .modificationNo(modNo)
-                .fieldName("name")
-                .newValue(siteProject.getName())
-                .build();
-        auditLogFieldService.auditField(auditFieldLog);
+        for (Field field : allFields) {
+             field.setAccessible(true);
+             try {
+                 AuditLogField auditFieldLog = AuditLogField.builder()
+                         .keyId("site_project~" + siteProject.getId())
+                         .modificationNo(modNo)
+                         .fieldName(field.getName())
+                         .newValue(field.get(siteProject).toString())
+                         .build();
+                 auditLogFieldService.auditField(auditFieldLog);
+             }
+             catch (Exception e){
+                System.out.println("Something went wrong." + field.getName()+" "+e.fillInStackTrace());
+            }
 
-        auditFieldLog = AuditLogField.builder()
-                .keyId("site_project~" + siteProject.getId())
-                .modificationNo(modNo)
-                .fieldName("description")
-                .newValue(siteProject.getDescription())
-                .build();
-        auditLogFieldService.auditField(auditFieldLog);
-
-        auditFieldLog = AuditLogField.builder()
-                .keyId("site_project~" + siteProject.getId())
-                .modificationNo(modNo)
-                .fieldName("name")
-                .newValue(siteProject.getName())
-                .build();
-        auditLogFieldService.auditField(auditFieldLog);
-
-        auditFieldLog = AuditLogField.builder()
-                .keyId("site_project~" + siteProject.getId())
-                .modificationNo(modNo)
-                .fieldName("status")
-                .newValue(siteProject.getStatus())
-                .build();
-        auditLogFieldService.auditField(auditFieldLog);
-
-        auditFieldLog = AuditLogField.builder()
-                .keyId("site_project~" + siteProject.getId())
-                .modificationNo(modNo)
-                .fieldName("notes")
-                .newValue(siteProject.getNotes())
-                .build();
-        auditLogFieldService.auditField(auditFieldLog);
-
-        auditFieldLog = AuditLogField.builder()
-                .keyId("site_project~" + siteProject.getId())
-                .modificationNo(modNo)
-                .fieldName("acquiredDate")
-                .newValue(String.valueOf(siteProject.getDateAcquired()))
-                .build();
-        auditLogFieldService.auditField(auditFieldLog);
-
-        auditFieldLog = AuditLogField.builder()
-                .keyId("site_project~" + siteProject.getId())
-                .modificationNo(modNo)
-                .fieldName("startDate")
-                .newValue(String.valueOf(siteProject.getStartDate()))
-                .build();
-        auditLogFieldService.auditField(auditFieldLog);
-
-        auditFieldLog = AuditLogField.builder()
-                .keyId("site_project~" + siteProject.getId())
-                .modificationNo(modNo)
-                .fieldName("endDate")
-                .newValue(String.valueOf(siteProject.getEndDate()))
-                .build();
-        auditLogFieldService.auditField(auditFieldLog);
-
-        auditFieldLog = AuditLogField.builder()
-                .keyId("site_project~" + siteProject.getId())
-                .modificationNo(modNo)
-                .fieldName("defaultDailyHours")
-                .newValue(String.valueOf(siteProject.getDefaultDailyHours()))
-                .build();
-        auditLogFieldService.auditField(auditFieldLog);
-
-        auditFieldLog = AuditLogField.builder()
-                .keyId("site_project~" + siteProject.getId())
-                .modificationNo(modNo)
-                .fieldName("estimatedCost")
-                .newValue(String.valueOf(siteProject.getEstimatedCost()))
-                .build();
-        auditLogFieldService.auditField(auditFieldLog);
+        }
 
          return AuditLogRepository.save(auditLog);
     }

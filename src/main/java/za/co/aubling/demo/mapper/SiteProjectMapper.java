@@ -12,12 +12,18 @@ public class SiteProjectMapper {
                 .id(siteProject.getId())
                 .name(siteProject.getName())
                 .description(siteProject.getDescription())
-                .estimatedCost(siteProject.getProjectCost())
+                .estimatedCost(siteProject.getEstimatedCost())
+                .projectCost(siteProject.getProjectCost())
                 .startDate(siteProject.getEstimatedStartDate())
                 .estimatedStartDate(siteProject.getEstimatedStartDate())
-                .endDate(siteProject.getEstimatedEndDate())
+                .endDate(siteProject.getEndDate())
+                .startDate(siteProject.getStartDate())
+                .status(siteProject.getStatus())
+                .defaultDailyHours(siteProject.getDefaultDailyHours())
+                .maximumAllowedHours(siteProject.getMaximumAllowedHours())
                 .estimatedEndDate(siteProject.getEstimatedEndDate())
                 .notes(siteProject.getNotes())
+                .acquiredDate(siteProject.getDateAcquired())
                 .build();
     }
 
@@ -26,14 +32,18 @@ public class SiteProjectMapper {
                 .id(siteProjectDto.getId())
                 .name(siteProjectDto.getName())
                 .description(siteProjectDto.getDescription())
-                .projectCost(siteProjectDto.getEstimatedCost())
-                .dateAcquired(siteProjectDto.getAcquiredDate())
-                .startDate(siteProjectDto.getStartDate())
+                .estimatedCost(siteProjectDto.getEstimatedCost())
+                .projectCost(siteProjectDto.getProjectCost())
+                .startDate(siteProjectDto.getEstimatedStartDate())
                 .estimatedStartDate(siteProjectDto.getEstimatedStartDate())
-                .estimatedEndDate(siteProjectDto.getEstimatedEndDate())
                 .endDate(siteProjectDto.getEndDate())
+                .startDate(siteProjectDto.getStartDate())
                 .status(siteProjectDto.getStatus())
+                .defaultDailyHours(siteProjectDto.getDefaultDailyHours())
+                .maximumAllowedHours(siteProjectDto.getMaximumAllowedHours())
+                .estimatedEndDate(siteProjectDto.getEstimatedEndDate())
                 .notes(siteProjectDto.getNotes())
+                .dateAcquired(siteProjectDto.getAcquiredDate())
                 .build();
     }
 }

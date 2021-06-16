@@ -63,9 +63,9 @@ public class SiteProject implements Serializable {
     private Integer defaultDailyHours;
 
     @Column(name = "maximum_allowed_hours")
-    private String maximumAllowedHours;
+    private Integer maximumAllowedHours;
 
     @Column(name = "estimated_cost")
-    private String estimatedCost;
+    private BigDecimal estimatedCost;
 
 }

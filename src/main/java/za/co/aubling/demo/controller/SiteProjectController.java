@@ -55,18 +55,18 @@ public class SiteProjectController {
     }
 
     @PostMapping
-    public ResponseEntity<SiteProject> addSiteProject(@RequestBody SiteProjectDto siteProjectDto) throws SQLException, ClassNotFoundException {
+    public ResponseEntity<SiteProject> addSiteProject(@RequestBody SiteProjectDto siteProjectDto) throws SQLException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         log.debug("Site project: {}", siteProjectDto);
-        if (siteProjectDto.getId() != null){
-            log.debug("AUBLIN1234: {}", siteProjectDto);
-            auditLogService.AuditSiteProject(siteProjectDto);
-            SiteProject siteProject = siteProjectService.addSiteProject(siteProjectDto);
-            return ResponseEntity.ok(siteProject);
-        } else {
+//        if (siteProjectDto.getId() != null){
+//            log.debug("AUBLIN1234: {}", siteProjectDto);
+//            auditLogService.AuditSiteProject(siteProjectDto);
+//            SiteProject siteProject = siteProjectService.addSiteProject(siteProjectDto);
+//            return ResponseEntity.ok(siteProject);
+//        } else {
             SiteProject siteProject = siteProjectService.addSiteProject(siteProjectDto);
             auditLogService.AuditSiteProject(siteProject);
             return ResponseEntity.ok(siteProject);
-        }
+//        }
     }
 
     @GetMapping

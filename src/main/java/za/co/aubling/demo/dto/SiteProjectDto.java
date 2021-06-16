@@ -20,11 +20,12 @@ import java.sql.Timestamp;
 public class SiteProjectDto implements Serializable {
 
     private Long   id;
-    private String name;
-    private String description;
-    private String status;
+    public String name;
+    public String description;
+    public String status;
     private String notes;
     private BigDecimal estimatedCost;
+    private BigDecimal projectCost;
     private Timestamp acquiredDate;
     private Timestamp startDate;
     private Timestamp endDate;
