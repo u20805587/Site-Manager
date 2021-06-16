@@ -5,3 +5,4 @@ import za.co.aubling.demo.domain.AuditLogField;
 
 public interface AuditLogFieldRepository extends JpaRepository<AuditLogField, String> {
 }
+

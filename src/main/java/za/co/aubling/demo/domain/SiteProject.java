@@ -59,4 +59,13 @@ public class SiteProject implements Serializable {
     @Column(name = "notes")
     private String notes;
 
+    @Column(name = "default_daily_hours")
+    private Integer defaultDailyHours;
+
+    @Column(name = "maximum_allowed_hours")
+    private String maximumAllowedHours;
+
+    @Column(name = "estimated_cost")
+    private String estimatedCost;
+
 }

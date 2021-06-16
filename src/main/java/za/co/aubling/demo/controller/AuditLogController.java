@@ -11,6 +11,7 @@ import za.co.aubling.demo.dto.AuditLogDto;
 import za.co.aubling.demo.mapper.AuditLogMapper;
 import za.co.aubling.demo.service.AuditLogService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,8 @@ public class AuditLogController {
     private final AuditLogService auditLogService;
     private final AuditLogMapper auditLogMapper;
 
-    public AuditLogController(AuditLogService auditLogService, AuditLogMapper auditLogMapper) {
+    public AuditLogController(AuditLogService auditLogService,
+                              AuditLogMapper auditLogMapper) {
         this.auditLogService = auditLogService;
         this.auditLogMapper = auditLogMapper;
     }

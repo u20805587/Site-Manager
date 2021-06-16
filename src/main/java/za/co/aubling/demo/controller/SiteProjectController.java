@@ -1,6 +1,5 @@
 package za.co.aubling.demo.controller;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +16,7 @@ import za.co.aubling.demo.domain.AuditLogField;
 import za.co.aubling.demo.dto.AuditLogFieldDto;
 import za.co.aubling.demo.service.AuditLogFieldService;
 
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -55,26 +55,18 @@ public class SiteProjectController {
     }
 
     @PostMapping
-    public ResponseEntity<SiteProject> addSiteProject(@RequestBody SiteProjectDto siteProjectDto) {
+    public ResponseEntity<SiteProject> addSiteProject(@RequestBody SiteProjectDto siteProjectDto) throws SQLException, ClassNotFoundException {
         log.debug("Site project: {}", siteProjectDto);
-        SiteProject siteProject = siteProjectService.addSiteProject(siteProjectDto);
-
-        auditLogDto.setKeyId("site_project~" + siteProject.getId());
-        auditLogDto.setModifiedBy("AUBREY");
-        auditLogDto.setAction("Insert");
-        auditLogDto.setModificationNo(1);
-        auditLogDto.setTableName("site_project");
-        auditLogDto.setModificationTimestamp(new Date());
-        auditLogDto.setKeyColumns("ProjectId");
-
-        auditLogFieldDto.setKeyId("site_project~" + siteProject.getId());
-        auditLogFieldDto.setFieldName("name");
-        auditLogFieldDto.setNewValue(siteProject.getName());
-        auditLogFieldDto.setModificationNo(1);
-
-        auditLogService.addAuditLog(auditLogDto);
-        auditLogFieldService.addAuditLogField(auditLogFieldDto);
-        return ResponseEntity.ok(siteProject);
+        if (siteProjectDto.getId() != null){
+            log.debug("AUBLIN1234: {}", siteProjectDto);
+            auditLogService.AuditSiteProject(siteProjectDto);
+            SiteProject siteProject = siteProjectService.addSiteProject(siteProjectDto);
+            return ResponseEntity.ok(siteProject);
+        } else {
+            SiteProject siteProject = siteProjectService.addSiteProject(siteProjectDto);
+            auditLogService.AuditSiteProject(siteProject);
+            return ResponseEntity.ok(siteProject);
+        }
     }
 
     @GetMapping
