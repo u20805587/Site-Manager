@@ -31,6 +31,10 @@ public class AuditLogService {
     private final AuditLogFieldService auditLogFieldService;
     private final SiteProjectService siteProjectService;
 
+    private String myDriver = "org.postgresql.Driver";
+    private String myUrl = "jdbc:postgresql://localhost:5432/SiteProject";
+
+
     public AuditLogService(AuditLogRepository AuditLogRepository,
                           AuditLogFieldService auditLogFieldService,
                           SiteProjectService siteProjectService) {
@@ -59,8 +63,6 @@ public class AuditLogService {
     }
 
     public AuditLog AuditSiteProject(SiteProject siteProject) throws ClassNotFoundException, SQLException, NoSuchFieldException, IllegalAccessException {
-        String myDriver = "org.postgresql.Driver";
-        String myUrl = "jdbc:postgresql://localhost:5432/SiteProject";
         Class.forName(myDriver);
         String query = "SELECT COALESCE(max(modification_no),0) modificationNo FROM public.audit_log where key_id = 'site_project~" + siteProject.getId() + "'";
         Connection conn = DriverManager.getConnection(myUrl, "postgres", "Cerato#4");
@@ -74,16 +76,6 @@ public class AuditLogService {
         
         if (modNo != 1) {
             action = "Update";
-        }
-
-        query = "SELECT id, date_acquired, project_description, end_date, estimated_end_date, estimated_start_date, " +
-                "project_name, notes, project_cost, start_date, status, default_daily_hours, estimated_cost, " +
-                "maximum_allowed_hours FROM site_project where id = " + siteProject.getId()+";";
-
-        rs = st.executeQuery(query);
-
-        if (rs.next()) {
-            modNo = modNo;
         }
 
         AuditLog auditLog = AuditLog.builder()
@@ -116,6 +108,249 @@ public class AuditLogService {
         }
 
          return AuditLogRepository.save(auditLog);
+    }
+
+    public AuditLog AuditRole(SecurityRole securityRole) throws ClassNotFoundException, SQLException, NoSuchFieldException, IllegalAccessException {
+        Class.forName(myDriver);
+        String query = "SELECT COALESCE(max(modification_no),0) modificationNo FROM public.audit_log where key_id = 'security_role~" + securityRole.getRoleId() + "'";
+        Connection conn = DriverManager.getConnection(myUrl, "postgres", "Cerato#4");
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        Integer modNo = 0;
+        String action = "Insert";
+        if (rs.next()) {
+            modNo = rs.getInt("modificationNo") + 1;
+        }
+
+        if (modNo != 1) {
+            action = "Update";
+        }
+
+        AuditLog auditLog = AuditLog.builder()
+                .keyId("security_role~" + securityRole.getRoleId())
+                .action(action)
+                .modificationNo(modNo)
+                .keyColumns("role_id~")
+                .modifiedBy("Aubrey")
+                .modificationTimestamp(new Date())
+                .tableName("security_role")
+                .build();
+
+        Field[] allFields = securityRole.getClass().getDeclaredFields();
+
+        for (Field field : allFields) {
+            field.setAccessible(true);
+            try {
+                AuditLogField auditFieldLog = AuditLogField.builder()
+                        .keyId("site_project~" + securityRole.getRoleId())
+                        .modificationNo(modNo)
+                        .fieldName(field.getName())
+                        .newValue(field.get(securityRole).toString())
+                        .build();
+                auditLogFieldService.auditField(auditFieldLog);
+            }
+            catch (Exception e){
+                System.out.println("Something went wrong." + field.getName()+" "+e.fillInStackTrace());
+            }
+
+        }
+
+        return AuditLogRepository.save(auditLog);
+    }
+
+    public AuditLog AuditFunction(SecurityFunction securityFunction) throws ClassNotFoundException, SQLException, NoSuchFieldException, IllegalAccessException {
+        Class.forName(myDriver);
+        String query = "SELECT COALESCE(max(modification_no),0) modificationNo FROM public.audit_log where key_id = 'security_function~" + securityFunction.getFunctionID() + "'";
+        Connection conn = DriverManager.getConnection(myUrl, "postgres", "Cerato#4");
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        Integer modNo = 0;
+        String action = "Insert";
+        if (rs.next()) {
+            modNo = rs.getInt("modificationNo") + 1;
+        }
+
+        if (modNo != 1) {
+            action = "Update";
+        }
+
+        AuditLog auditLog = AuditLog.builder()
+                .keyId("security_function~" + securityFunction.getFunctionID())
+                .action(action)
+                .modificationNo(modNo)
+                .keyColumns("function_id~")
+                .modifiedBy("Aubrey")
+                .modificationTimestamp(new Date())
+                .tableName("security_function")
+                .build();
+
+        Field[] allFields = securityFunction.getClass().getDeclaredFields();
+
+        for (Field field : allFields) {
+            field.setAccessible(true);
+            try {
+                AuditLogField auditFieldLog = AuditLogField.builder()
+                        .keyId("site_project~" + securityFunction.getFunctionID())
+                        .modificationNo(modNo)
+                        .fieldName(field.getName())
+                        .newValue(field.get(securityFunction).toString())
+                        .build();
+                auditLogFieldService.auditField(auditFieldLog);
+            }
+            catch (Exception e){
+                System.out.println("Something went wrong." + field.getName()+" "+e.fillInStackTrace());
+            }
+
+        }
+
+        return AuditLogRepository.save(auditLog);
+    }
+
+    public AuditLog AuditRoleFunction(SecurityRoleFunction securityRoleFunction) throws ClassNotFoundException, SQLException, NoSuchFieldException, IllegalAccessException {
+        Class.forName(myDriver);
+        String query = "SELECT COALESCE(max(modification_no),0) modificationNo FROM public.audit_log where key_id = 'security_role_function~"
+                       + securityRoleFunction.getRoleId() + "~"+securityRoleFunction.getFunctionId()+"'";
+        Connection conn = DriverManager.getConnection(myUrl, "postgres", "Cerato#4");
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        Integer modNo = 0;
+        String action = "Insert";
+        if (rs.next()) {
+            modNo = rs.getInt("modificationNo") + 1;
+        }
+
+        if (modNo != 1) {
+            action = "Update";
+        }
+
+        AuditLog auditLog = AuditLog.builder()
+                .keyId("security_role_function~" + securityRoleFunction.getRoleId() + "~"+securityRoleFunction.getFunctionId())
+                .action(action)
+                .modificationNo(modNo)
+                .keyColumns("function_id~")
+                .modifiedBy("Aubrey")
+                .modificationTimestamp(new Date())
+                .tableName("security_role_function")
+                .build();
+
+        Field[] allFields = securityRoleFunction.getClass().getDeclaredFields();
+
+        for (Field field : allFields) {
+            field.setAccessible(true);
+            try {
+                AuditLogField auditFieldLog = AuditLogField.builder()
+                        .keyId("security_role_function~" + securityRoleFunction.getRoleId() + "~"+securityRoleFunction.getFunctionId())
+                        .modificationNo(modNo)
+                        .fieldName(field.getName())
+                        .newValue(field.get(securityRoleFunction).toString())
+                        .build();
+                auditLogFieldService.auditField(auditFieldLog);
+            }
+            catch (Exception e){
+                System.out.println("Something went wrong." + field.getName()+" "+e.fillInStackTrace());
+            }
+
+        }
+
+        return AuditLogRepository.save(auditLog);
+    }
+
+    public AuditLog AuditWorkerRole(SecurityWorkerRole securityWorkerRole) throws ClassNotFoundException, SQLException, NoSuchFieldException, IllegalAccessException {
+        Class.forName(myDriver);
+        String query = "SELECT COALESCE(max(modification_no),0) modificationNo FROM public.audit_log where key_id = 'security_worker_role~"
+                + securityWorkerRole.getWorkerId() + "~"+securityWorkerRole.getRoleId()+"'";
+        Connection conn = DriverManager.getConnection(myUrl, "postgres", "Cerato#4");
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        Integer modNo = 0;
+        String action = "Insert";
+        if (rs.next()) {
+            modNo = rs.getInt("modificationNo") + 1;
+        }
+
+        if (modNo != 1) {
+            action = "Update";
+        }
+
+        AuditLog auditLog = AuditLog.builder()
+                .keyId("security_role_function~" + securityWorkerRole.getWorkerId() + "~"+securityWorkerRole.getRoleId())
+                .action(action)
+                .modificationNo(modNo)
+                .keyColumns("worker_id~role_id")
+                .modifiedBy("Aubrey")
+                .modificationTimestamp(new Date())
+                .tableName("security_worker_role")
+                .build();
+
+        Field[] allFields = securityWorkerRole.getClass().getDeclaredFields();
+
+        for (Field field : allFields) {
+            field.setAccessible(true);
+            try {
+                AuditLogField auditFieldLog = AuditLogField.builder()
+                        .keyId("security_worker_role~" + securityWorkerRole.getWorkerId() + "~"+securityWorkerRole.getRoleId())
+                        .modificationNo(modNo)
+                        .fieldName(field.getName())
+                        .newValue(field.get(securityWorkerRole).toString())
+                        .build();
+                auditLogFieldService.auditField(auditFieldLog);
+            }
+            catch (Exception e){
+                System.out.println("Something went wrong." + field.getName()+" "+e.fillInStackTrace());
+            }
+
+        }
+
+        return AuditLogRepository.save(auditLog);
+    }
+
+    public AuditLog AuditWorkerFunction(SecurityWorkerFunction securityWorkerFunction) throws ClassNotFoundException, SQLException, NoSuchFieldException, IllegalAccessException {
+        Class.forName(myDriver);
+        String query = "SELECT COALESCE(max(modification_no),0) modificationNo FROM public.audit_log where key_id = 'security_worker_function~"
+                + securityWorkerFunction.getWorkerId() + "~"+securityWorkerFunction.getFunctionId()+"'";
+        Connection conn = DriverManager.getConnection(myUrl, "postgres", "Cerato#4");
+        Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(query);
+        Integer modNo = 0;
+        String action = "Insert";
+        if (rs.next()) {
+            modNo = rs.getInt("modificationNo") + 1;
+        }
+
+        if (modNo != 1) {
+            action = "Update";
+        }
+
+        AuditLog auditLog = AuditLog.builder()
+                .keyId("security_worker_function~" + securityWorkerFunction.getWorkerId() + "~"+securityWorkerFunction.getFunctionId())
+                .action(action)
+                .modificationNo(modNo)
+                .keyColumns("worker_id~role_id")
+                .modifiedBy("Aubrey")
+                .modificationTimestamp(new Date())
+                .tableName("security_worker_function")
+                .build();
+
+        Field[] allFields = securityWorkerFunction.getClass().getDeclaredFields();
+
+        for (Field field : allFields) {
+            field.setAccessible(true);
+            try {
+                AuditLogField auditFieldLog = AuditLogField.builder()
+                        .keyId("security_worker_function~" + securityWorkerFunction.getWorkerId() + "~"+securityWorkerFunction.getFunctionId())
+                        .modificationNo(modNo)
+                        .fieldName(field.getName())
+                        .newValue(field.get(securityWorkerFunction).toString())
+                        .build();
+                auditLogFieldService.auditField(auditFieldLog);
+            }
+            catch (Exception e){
+                System.out.println("Something went wrong." + field.getName()+" "+e.fillInStackTrace());
+            }
+
+        }
+
+        return AuditLogRepository.save(auditLog);
     }
 
     public List<AuditLog> getAuditLog() {

@@ -16,6 +16,8 @@ public class SiteWorkerMapper {
                 .addressLine2(siteWorker.getAddressLine2())
                 .addressLine3(siteWorker.getAddressLine3())
                 .postalCode(siteWorker.getPostalCode())
+                .username(siteWorker.getUsername())
+                .password(siteWorker.getPassword())
                 .build();
     }
 
@@ -31,6 +33,8 @@ public class SiteWorkerMapper {
                 .contactNumber(siteWorkerDto.getContactNumber())
                 .hourlyRate(siteWorkerDto.getHourlyRate())
                 .postalCode(siteWorkerDto.getPostalCode())
+                .username(siteWorkerDto.getUsername())
+                .password(siteWorkerDto.getPassword())
                 .build();
     }
 }

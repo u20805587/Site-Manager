@@ -34,39 +34,21 @@ public class SiteProjectController {
 
     private final AuditLogService auditLogService;
 
-    private final AuditLogDto auditLogDto;
-
-    private final AuditLogFieldService auditLogFieldService;
-
-    private final AuditLogFieldDto auditLogFieldDto;
 
     public SiteProjectController(SiteProjectService siteProjectService,
                                  SiteProjectMapper siteProjectMapper,
-                                 AuditLogService auditLogService,
-                                 AuditLogDto auditLogDto,
-                                 AuditLogFieldService auditLogFieldService,
-                                 AuditLogFieldDto auditLogFieldDto) {
+                                 AuditLogService auditLogService) {
         this.siteProjectService = siteProjectService;
         this.siteProjectMapper = siteProjectMapper;
         this.auditLogService = auditLogService;
-        this.auditLogDto = auditLogDto;
-        this.auditLogFieldService = auditLogFieldService;
-        this.auditLogFieldDto = auditLogFieldDto;
     }
 
     @PostMapping
     public ResponseEntity<SiteProject> addSiteProject(@RequestBody SiteProjectDto siteProjectDto) throws SQLException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         log.debug("Site project: {}", siteProjectDto);
-//        if (siteProjectDto.getId() != null){
-//            log.debug("AUBLIN1234: {}", siteProjectDto);
-//            auditLogService.AuditSiteProject(siteProjectDto);
-//            SiteProject siteProject = siteProjectService.addSiteProject(siteProjectDto);
-//            return ResponseEntity.ok(siteProject);
-//        } else {
             SiteProject siteProject = siteProjectService.addSiteProject(siteProjectDto);
             auditLogService.AuditSiteProject(siteProject);
             return ResponseEntity.ok(siteProject);
-//        }
     }
 
     @GetMapping

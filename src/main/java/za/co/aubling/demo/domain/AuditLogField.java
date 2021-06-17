@@ -2,10 +2,8 @@ package za.co.aubling.demo.domain;
 
 import lombok.*;
 import za.co.aubling.demo.id.AuditLogFieldId;
-import za.co.aubling.demo.id.AuditLogId;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor

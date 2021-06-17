@@ -26,6 +26,12 @@ public class SiteWorker implements Serializable {
     @Column(name = "worker_id")
     private Long workerId;
 
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
     @ManyToOne
     @JoinColumn(name = "worker_cat_id")
     private SiteWorkerCategory siteWorkerCategory;

@@ -30,4 +30,6 @@ public class SiteWorkerDto implements Serializable {
     private String stateCode;
     private BigDecimal hourlyRate;
     private Timestamp birthDate;
+    private String username;
+    private String password;
 }
