@@ -1,13 +1,8 @@
 package za.co.aubling.demo.controller;
 
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import za.co.aubling.demo.domain.SiteProject;
 import za.co.aubling.demo.dto.SiteProjectDto;
 import za.co.aubling.demo.mapper.SiteProjectMapper;
@@ -17,6 +12,11 @@ import za.co.aubling.demo.domain.AuditLog;
 import za.co.aubling.demo.dto.AuditLogDto;
 import za.co.aubling.demo.service.AuditLogService;
 
+import za.co.aubling.demo.domain.AuditLogField;
+import za.co.aubling.demo.dto.AuditLogFieldDto;
+import za.co.aubling.demo.service.AuditLogFieldService;
+
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
@@ -34,30 +34,21 @@ public class SiteProjectController {
 
     private final AuditLogService auditLogService;
 
-    private final AuditLogDto auditLogDto;
 
-    public SiteProjectController(SiteProjectService siteProjectService, SiteProjectMapper siteProjectMapper, AuditLogService auditLogService, AuditLogDto auditLogDto) {
+    public SiteProjectController(SiteProjectService siteProjectService,
+                                 SiteProjectMapper siteProjectMapper,
+                                 AuditLogService auditLogService) {
         this.siteProjectService = siteProjectService;
         this.siteProjectMapper = siteProjectMapper;
         this.auditLogService = auditLogService;
-        this.auditLogDto = auditLogDto;
     }
 
     @PostMapping
-    public ResponseEntity<SiteProject> addSiteProject(@RequestBody SiteProjectDto siteProjectDto) {
+    public ResponseEntity<SiteProject> addSiteProject(@RequestBody SiteProjectDto siteProjectDto) throws SQLException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
         log.debug("Site project: {}", siteProjectDto);
-        SiteProject siteProject = siteProjectService.addSiteProject(siteProjectDto);
-
-        auditLogDto.setKeyId("site_project~" + siteProject.getId());
-        auditLogDto.setModifiedBy("AUBREY");
-        auditLogDto.setAction("Insert");
-        auditLogDto.setModificationNo(1);
-        auditLogDto.setTableName("site_project");
-        auditLogDto.setModificationTimestamp(new Date());
-        auditLogDto.setKeyColumns("ProjectId");
-
-        auditLogService.addAuditLog(auditLogDto);
-        return ResponseEntity.ok(siteProject);
+            SiteProject siteProject = siteProjectService.addSiteProject(siteProjectDto);
+            auditLogService.AuditSiteProject(siteProject);
+            return ResponseEntity.ok(siteProject);
     }
 
     @GetMapping
@@ -66,6 +57,12 @@ public class SiteProjectController {
         return ResponseEntity.ok(siteProjects.stream()
                 .map(siteProjectMapper::toDto)
                 .collect(Collectors.toList()));
+    }
+
+    @GetMapping("/{projectId}")
+    public ResponseEntity<SiteProjectDto> getProject(@PathVariable Long projectId) {
+        SiteProject project = siteProjectService.getProject(projectId);
+        return ResponseEntity.ok(siteProjectMapper.toDto(project));
     }
 
 }

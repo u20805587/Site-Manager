@@ -1,10 +1,12 @@
 package za.co.aubling.demo.domain;
 
+import com.sun.javafx.beans.IDProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import za.co.aubling.demo.id.AuditLogId;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +20,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@IdClass(AuditLog.class)
+@IdClass(AuditLogId.class)
 @Table(name = "audit_log")
 public class AuditLog implements Serializable {
 

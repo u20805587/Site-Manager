@@ -1,12 +1,17 @@
 package za.co.aubling.demo.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.Date;
+import lombok.*;
+import za.co.aubling.demo.id.AuditLogFieldId;
 
+import javax.persistence.*;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
+@Setter
 @Entity
+@IdClass(AuditLogFieldId.class)
 @Table(name = "audit_log_field")
 public class AuditLogField {
 
@@ -14,9 +19,11 @@ public class AuditLogField {
     @Column(name = "key_id")
     private String keyId;
 
+    @Id
     @Column(name = "modification_no")
-    private Long modificationNo;
+    private Integer modificationNo;
 
+    @Id
     @Column(name = "field_name")
     private String fieldName;
 
