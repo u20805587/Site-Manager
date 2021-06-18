@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @Controller
-@RequestMapping("/api/WorkerFunction")
+@RequestMapping("/api/workerfunction")
 public class SecurityWorkerFunctionController {
 
     private final SecurityWorkerFunctionMapper securityWorkerFunctionMapper;
