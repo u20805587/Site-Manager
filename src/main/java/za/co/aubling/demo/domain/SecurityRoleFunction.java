@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @IdClass(SecurityRoleFunctionId.class)
-@Table(name = "security_role")
+@Table(name = "security_role_function")
 public class SecurityRoleFunction {
 
     @Id

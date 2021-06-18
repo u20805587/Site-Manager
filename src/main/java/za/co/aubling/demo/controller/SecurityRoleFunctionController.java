@@ -10,7 +10,7 @@ import za.co.aubling.demo.dto.SecurityRoleFunctionDto;
 import za.co.aubling.demo.mapper.SecurityRoleFunctionMapper;
 import za.co.aubling.demo.service.AuditLogService;
 import za.co.aubling.demo.service.SecurityRoleFunctionService;
-
+import java.io.*;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,7 +38,6 @@ public class SecurityRoleFunctionController {
 
     @PostMapping
     public ResponseEntity<SecurityRoleFunction> addRoleFunction(@RequestBody SecurityRoleFunctionDto securityRoleFunctionDto) throws SQLException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
-        log.debug("Site project: {}", securityRoleFunctionDto);
             SecurityRoleFunction securityRoleFunction = securityRoleFunctionService.addRoleFunction(securityRoleFunctionDto);
             auditLogService.AuditRoleFunction(securityRoleFunction);
             return ResponseEntity.ok(securityRoleFunction);
@@ -52,8 +51,8 @@ public class SecurityRoleFunctionController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/{roleId},{functionId}")
-    public ResponseEntity<SecurityRoleFunctionDto> getProject(@PathVariable String roleId, String functionId) {
+    @GetMapping("/{roleId}/{functionId}")
+    public ResponseEntity<SecurityRoleFunctionDto> getRoleFunction(@PathVariable String roleId,@PathVariable String functionId) {
         SecurityRoleFunction RoleFunction = securityRoleFunctionService.getRoleFunction(roleId,functionId);
         return ResponseEntity.ok(securityRoleFunctionMapper.toDto(RoleFunction));
     }

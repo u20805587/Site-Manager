@@ -35,8 +35,9 @@ public class SecurityRoleController {
 
     @PostMapping
     public ResponseEntity<SecurityRole> addRole(@RequestBody SecurityRoleDto securityRoleDto) throws SQLException, ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
-        log.debug("Site project: {}", securityRoleDto);
+        log.debug("Aubs Starting Here: {}", securityRoleDto);
             SecurityRole securityRole = securityRoleService.addRole(securityRoleDto);
+        log.debug("Aubs Failed here: {}", securityRoleDto);
             auditLogService.AuditRole(securityRole);
             return ResponseEntity.ok(securityRole);
     }
