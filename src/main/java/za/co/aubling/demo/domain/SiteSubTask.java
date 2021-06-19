@@ -28,9 +28,8 @@ public class SiteSubTask implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "task_id")
-    private SiteTask siteTask;
+    @Column(name = "task_id")
+    private Long siteTask;
 
     @Column(name = "sub_task_name")
     private String subTaskName;

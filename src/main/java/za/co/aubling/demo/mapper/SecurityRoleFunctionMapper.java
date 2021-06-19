@@ -13,6 +13,7 @@ public class SecurityRoleFunctionMapper {
                 .insert(securityRoleFunction.getInsert())
                 .modify(securityRoleFunction.getModify())
                 .delete(securityRoleFunction.getDelete())
+                .view(securityRoleFunction.getView())
                 .build();
     }
 
@@ -23,6 +24,7 @@ public class SecurityRoleFunctionMapper {
                 .insert(securityRoleFunctionDto.getInsert())
                 .modify(securityRoleFunctionDto.getModify())
                 .delete(securityRoleFunctionDto.getDelete())
+                .view(securityRoleFunctionDto.getView())
                 .build();
     }
 }

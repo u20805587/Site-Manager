@@ -51,9 +51,10 @@ public class SecurityWorkerFunctionController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/{roleId},{functionId}")
-    public ResponseEntity<SecurityWorkerFunctionDto> getProject(@PathVariable String roleId, String functionId) {
-        SecurityWorkerFunction WorkerFunction = securityWorkerFunctionService.getWorkerFunction(roleId,functionId);
+    @GetMapping("/{workerId}/{functionId}")
+    public ResponseEntity<SecurityWorkerFunctionDto> getWorkerFunction(@PathVariable String workerId,@PathVariable String functionId) {
+        log.debug("Worker ID: {}", workerId);
+        SecurityWorkerFunction WorkerFunction = securityWorkerFunctionService.getWorkerFunction(workerId,functionId);
         return ResponseEntity.ok(securityWorkerFunctionMapper.toDto(WorkerFunction));
     }
 

@@ -13,6 +13,7 @@ public class SecurityWorkerFunctionMapper {
                 .insert(securityWorkerFunction.getInsert())
                 .modify(securityWorkerFunction.getModify())
                 .delete(securityWorkerFunction.getDelete())
+                .view(securityWorkerFunction.getView())
                 .build();
     }
 
@@ -23,6 +24,7 @@ public class SecurityWorkerFunctionMapper {
                 .insert(securityWorkerFunctionDto.getInsert())
                 .modify(securityWorkerFunctionDto.getModify())
                 .delete(securityWorkerFunctionDto.getDelete())
+                .view(securityWorkerFunctionDto.getView())
                 .build();
     }
 }

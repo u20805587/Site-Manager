@@ -25,6 +25,7 @@ public class SecurityWorkerFunctionDto implements Serializable {
     private String insert;
     private String modify;
     private String delete;
+    private String view;
 
 
 }
