@@ -5,15 +5,15 @@ import java.util.Objects;
 
 public class SecurityWorkerFunctionId implements Serializable {
 
-    private String functionId;
     private String workerId;
+    private String functionId;
 
     public SecurityWorkerFunctionId() {
     }
 
-    public SecurityWorkerFunctionId(String functionId, String workerId) {
-        this.functionId = functionId;
+    public SecurityWorkerFunctionId(String workerId, String functionId) {
         this.workerId = workerId;
+        this.functionId = functionId;
     }
 
     @Override
@@ -21,12 +21,13 @@ public class SecurityWorkerFunctionId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SecurityWorkerFunctionId securityWorkerFunctionId = (SecurityWorkerFunctionId) o;
-        return functionId.equals(securityWorkerFunctionId.functionId) &&
-                workerId.equals(securityWorkerFunctionId.workerId);
+        return workerId.equals(securityWorkerFunctionId.workerId) &&
+                functionId.equals(securityWorkerFunctionId.functionId)
+                ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(functionId, workerId);
+        return Objects.hash(workerId,functionId);
     }
 }

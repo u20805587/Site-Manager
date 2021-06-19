@@ -32,4 +32,6 @@ public class SecurityRoleFunction {
     @Column(name = "delete")
     private String delete;
 
+    @Column(name = "view")
+    private String view;
 }

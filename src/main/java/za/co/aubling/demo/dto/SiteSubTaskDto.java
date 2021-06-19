@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 public class SiteSubTaskDto implements Serializable {
 
     private Long id;
-    private SiteTask siteTask;
+    private Long siteTask;
     private String subTaskName;
     private String subTaskDescription;
     private BigDecimal meterCost;

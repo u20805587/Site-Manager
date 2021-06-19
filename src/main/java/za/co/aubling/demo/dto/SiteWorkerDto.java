@@ -17,7 +17,9 @@ import java.sql.Timestamp;
 @Builder
 public class SiteWorkerDto implements Serializable {
 
+    private Long workerId;
     private String name;
+    private String middleName;
     private String surname;
     private String addressLine1;
     private String addressLine2;
@@ -26,10 +28,12 @@ public class SiteWorkerDto implements Serializable {
     private String idNumber;
     private String contactNumber;
     private String nationality;
+    private String siteWorkerCategory;
     private String postalCode;
     private String stateCode;
     private BigDecimal hourlyRate;
     private Timestamp birthDate;
     private String username;
     private String password;
+    private String userStatus;
 }

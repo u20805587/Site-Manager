@@ -32,9 +32,8 @@ public class SiteWorker implements Serializable {
     @Column(name = "password")
     private String password;
 
-    @ManyToOne
     @JoinColumn(name = "worker_cat_id")
-    private SiteWorkerCategory siteWorkerCategory;
+    private String siteWorkerCategory;
 
     @Column(name = "name")
     private String name;
@@ -77,5 +76,8 @@ public class SiteWorker implements Serializable {
 
     @Column(name = "state_code")
     private String stateCode;
+
+    @Column(name = "user_status")
+    private String userStatus;
 
 }

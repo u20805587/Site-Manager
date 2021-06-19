@@ -51,9 +51,9 @@ public class SecurityWorkerRoleController {
                 .collect(Collectors.toList()));
     }
 
-    @GetMapping("/{roleId},{functionId}")
-    public ResponseEntity<SecurityWorkerRoleDto> getProject(@PathVariable String roleId, String functionId) {
-        SecurityWorkerRole WorkerRole = securityWorkerRoleService.getWorkerRole(roleId,functionId);
+    @GetMapping("/{workerId}/{roleId}")
+    public ResponseEntity<SecurityWorkerRoleDto> getProject(@PathVariable String workerId,@PathVariable String roleId) {
+        SecurityWorkerRole WorkerRole = securityWorkerRoleService.getWorkerRole(workerId,roleId);
         return ResponseEntity.ok(securityWorkerRoleMapper.toDto(WorkerRole));
     }
 
