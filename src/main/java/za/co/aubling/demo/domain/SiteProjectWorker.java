@@ -1,36 +1,30 @@
 package za.co.aubling.demo.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import za.co.aubling.demo.id.SecurityWorkerFunctionId;
+import za.co.aubling.demo.id.SiteProjectWorkerId;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
+@IdClass(SiteProjectWorkerId.class)
 @Table(name = "site_project_worker")
 public class SiteProjectWorker implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column (name = "worker_id")
+    private Long workerId;
 
-    @ManyToOne
-    @JoinColumn (name = "project_id")
-    private SiteProject siteProject;
-
-    @ManyToOne
-    @JoinColumn (name = "worker_id")
-    private SiteWorker siteWorker;
+    @Id
+    @Column (name = "project_id")
+    private Long projectId;
 
     @Column(name = "hourly_rate")
     private BigDecimal hourlyRate;
