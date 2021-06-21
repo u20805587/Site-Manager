@@ -1,7 +1,8 @@
 package za.co.aubling.demo.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import za.co.aubling.demo.id.SiteProjectTaskId;
+import za.co.aubling.demo.id.SiteProjectTaskLogId;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,26 +10,27 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
+@IdClass(SiteProjectTaskLogId.class)
 @Table(name = "site_project_task_log")
 public class SiteProjectTaskLog implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column (name = "project_id")
+    private Long projectId;
 
-    @ManyToOne
-    @JoinColumn (name = "project_id")
-    private SiteProject siteProject;
+    @Id
+    @Column (name = "sub_task_id")
+    private Long subtaskId;
 
-    @ManyToOne
-    @JoinColumn (name = "sub_task_id")
-    private SiteSubTask siteSubTask;
-
+    @Id
     @Column (name = "work_date")
-    private Timestamp workDate;
+    private Date workDate;
 
     @Column(name = "length")
     private BigDecimal length;
