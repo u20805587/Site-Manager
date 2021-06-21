@@ -1,7 +1,8 @@
 package za.co.aubling.demo.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import za.co.aubling.demo.id.SiteProjectWorkerId;
+import za.co.aubling.demo.id.SiteProjectWorkerLogId;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,26 +10,27 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
+@IdClass(SiteProjectWorkerLogId.class)
 @Table(name = "site_project_worker_log")
 public class SiteProjectWorkerLog {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column (name = "worker_id")
+    private Long workerId;
 
-    @ManyToOne
-    @JoinColumn (name = "project_id")
-    private SiteProject siteProject;
+    @Id
+    @Column (name = "project_id")
+    private Long projectId;
 
-    @ManyToOne
-    @JoinColumn (name = "worker_id")
-    private SiteWorker siteWorker;
-
+    @Id
     @Column (name = "work_date")
-    private Timestamp workDate;
+    private Date workDate;
 
     @Column(name = "hours")
     private BigDecimal hours;

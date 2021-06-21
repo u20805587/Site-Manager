@@ -1,26 +1,32 @@
 package za.co.aubling.demo.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import za.co.aubling.demo.id.SiteProjectTaskId;
+import za.co.aubling.demo.id.SiteProjectWorkerId;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
+@IdClass(SiteProjectTaskId.class)
 @Table(name = "site_project_task")
 public class SiteProjectTask implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column (name = "subtask_id")
+    private Long subtaskId;
 
-    @ManyToOne
-    @JoinColumn (name = "project_id")
-    private SiteProject siteProject;
+
+    @Id
+    @Column (name = "project_id")
+    private Long projectId;
 
     @Column(name = "length")
     private BigDecimal length;
